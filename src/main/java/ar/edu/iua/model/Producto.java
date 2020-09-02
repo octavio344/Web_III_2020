@@ -2,16 +2,26 @@ package ar.edu.iua.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="produtos")
 public class Producto implements Serializable {
+
+	public ProductoDetalle getProductoDetalle() {
+		return productoDetalle;
+	}
+
+	public void setProductoDetalle(ProductoDetalle productoDetalle) {
+		this.productoDetalle = productoDetalle;
+	}
 
 	private static final long serialVersionUID = 5081791146397214235L;
 	
@@ -33,6 +43,8 @@ public class Producto implements Serializable {
 	private boolean enStock;
 	
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	private ProductoDetalle productoDetalle;
 	
 	public Long getId() {
 		return id;
