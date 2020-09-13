@@ -1,27 +1,31 @@
 package ar.edu.iua.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name="produtos")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Producto implements Serializable {
-
-	public ProductoDetalle getProductoDetalle() {
-		return productoDetalle;
-	}
-
-	public void setProductoDetalle(ProductoDetalle productoDetalle) {
-		this.productoDetalle = productoDetalle;
-	}
 
 	private static final long serialVersionUID = 5081791146397214235L;
 	
@@ -45,6 +49,19 @@ public class Producto implements Serializable {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private ProductoDetalle productoDetalle;
+	
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "proveedor_id")
+	private Proveedor proveedor;
+	
+	
+	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "producto_ingrediente_detalle",
+	        joinColumns = @JoinColumn(name = "producto_id"),
+	        inverseJoinColumns = @JoinColumn(name = "ingrediente_id"))
+	private List<Ingrediente> ingredienteList;
+
 	
 	public Long getId() {
 		return id;
@@ -84,9 +101,24 @@ public class Producto implements Serializable {
 
 	public void setEnStock(boolean enStock) {
 		this.enStock = enStock;
+
 	}
 
+	public ProductoDetalle getProductoDetalle() {
+		return productoDetalle;
+	}
 
-	
+	public void setProductoDetalle(ProductoDetalle productoDetalle) {
+		this.productoDetalle = productoDetalle;
+	}
+
+	public Proveedor getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
+	}
+
 
 }
