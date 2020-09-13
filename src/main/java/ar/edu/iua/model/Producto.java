@@ -61,6 +61,13 @@ public class Producto implements Serializable {
 	        joinColumns = @JoinColumn(name = "producto_id"),
 	        inverseJoinColumns = @JoinColumn(name = "ingrediente_id"))
 	private List<Ingrediente> ingredienteList;
+	
+	
+	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "producto_venta",
+	        joinColumns = @JoinColumn(name = "producto_id"),
+	        inverseJoinColumns = @JoinColumn(name = "venta_id"))
+	private List<Venta> ventasList;
 
 	
 	public Long getId() {
@@ -120,5 +127,21 @@ public class Producto implements Serializable {
 		this.proveedor = proveedor;
 	}
 
+
+	public List<Ingrediente> getIngredienteList() {
+		return ingredienteList;
+	}
+
+	public void setIngredienteList(List<Ingrediente> ingredienteList) {
+		this.ingredienteList = ingredienteList;
+	}
+
+	public List<Venta> getVentasList() {
+		return ventasList;
+	}
+
+	public void setVentasList(List<Venta> ventasList) {
+		this.ventasList = ventasList;
+	}
 
 }
