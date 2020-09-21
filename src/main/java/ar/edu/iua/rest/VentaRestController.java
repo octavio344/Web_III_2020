@@ -89,7 +89,7 @@ private Logger log = LoggerFactory.getLogger(this.getClass());
 			try {
 				ventasBusiness.add(venta);
 				HttpHeaders responseHeaders = new HttpHeaders();
-				responseHeaders.set("location", Constantes.URL_PRODUCTOS + "/" + venta.getId());
+				responseHeaders.set("location", Constantes.URL_VENTAS + "/" + venta.getId());
 				return new ResponseEntity<String>(responseHeaders, HttpStatus.CREATED);
 			} catch (BusinessException e) {
 				log.error(e.getMessage(), e);
@@ -126,6 +126,25 @@ private Logger log = LoggerFactory.getLogger(this.getClass());
 				return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 			} catch (NotFoundException e) {
 				return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+			}
+		}
+		
+		
+		
+		// curl "http://localhost:8080/api/v1/productos/1" -v
+		@GetMapping(value = "/detalle-venta", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<List<Venta>> listByProductoNombre(@RequestParam(name = "nombre", required = true) String nombre) {
+			
+			try {
+				
+				return new ResponseEntity<List<Venta>>(ventasBusiness.listByNombreProducto(nombre), HttpStatus.OK);
+				
+			} catch (BusinessException e) {
+				log.error(e.getMessage(), e);
+				return new ResponseEntity<List<Venta>>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}catch (NotFoundException e) {
+				return new ResponseEntity<List<Venta>>(HttpStatus.NOT_FOUND);
+				
 			}
 		}
 		

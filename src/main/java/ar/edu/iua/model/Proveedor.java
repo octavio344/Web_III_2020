@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="proveedores")
 public class Proveedor implements Serializable {
@@ -31,6 +33,7 @@ public class Proveedor implements Serializable {
 	private String nombre;
 	
 	@OneToMany(targetEntity=Producto.class, mappedBy="proveedor", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<Producto> productoList;
 	
 	public Long getId() {

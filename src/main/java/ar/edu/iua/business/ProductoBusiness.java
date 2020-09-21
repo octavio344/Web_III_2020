@@ -154,6 +154,20 @@ public class ProductoBusiness implements IProductoBusiness {
 		
 	}
 
+	@Override
+	public List<Producto> listByVentaDetalle(String detalle) throws BusinessException, NotFoundException {
+		List<Producto> op;
+		try {
+			op=productoDAO.findByVentasListDetalleVentaContaining(detalle);
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+		if(op.isEmpty()) {
+			throw new NotFoundException("El producto con detalle de venta: "+detalle+" no se encuentra en la BD");
+		}
+		return op;
+	}
+
 }
 
 //@Autowired

@@ -183,6 +183,26 @@ public class ProductoRestController {
 		}
 	}
 
+	
+	
+	// curl "http://localhost:8080/api/v1/productos/detalle-venta" -v
+		@GetMapping(value = "/detalle-venta", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<List<Producto>> listByVentaDetalle(@RequestParam(name = "detalle", required = true) String detalle) {
+			
+			try {
+				
+				return new ResponseEntity<List<Producto>>(productoBusiness.listByVentaDetalle(detalle), HttpStatus.OK);
+				
+			} catch (BusinessException e) {
+				log.error(e.getMessage(), e);
+				return new ResponseEntity<List<Producto>>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}catch (NotFoundException e) {
+				return new ResponseEntity<List<Producto>>(HttpStatus.NOT_FOUND);
+				
+			}
+		}
+	
+	
 //URL-> http://localhost:8080/api/v1/productos/1 --> IProductoBusiness.load(  1 ) 
 
 }

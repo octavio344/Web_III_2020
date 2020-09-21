@@ -1,17 +1,20 @@
 package ar.edu.iua.business;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Service;
 
 import ar.edu.iua.business.exception.BusinessException;
 import ar.edu.iua.business.exception.NotFoundException;
 import ar.edu.iua.model.Venta;
 import ar.edu.iua.model.persistence.VentaRepository;
 
+@Service
 public class VentaBusiness implements IVentaBusiness{
 
 	
@@ -39,7 +42,7 @@ public class VentaBusiness implements IVentaBusiness{
 		if(!op.isPresent()) {
 			throw new NotFoundException("No se encontro la venta con el id: "+id);
 		}
-		return null;
+		return op.get();
 	}
 
 	@Override
@@ -62,7 +65,7 @@ public class VentaBusiness implements IVentaBusiness{
 			throw new NotFoundException("No se ha encontrado la venta con id = "+v.getId());
 		}
 		try {
-			return add(ven);
+			return add(v);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
@@ -102,6 +105,22 @@ public class VentaBusiness implements IVentaBusiness{
 			throw new NotFoundException("No se han encontrado ventas con la descripción proporcionada!");
 		}
 		
+		return l;
+	}
+
+	
+	@Override
+	public List<Venta> listByNombreProducto(String nombre) throws BusinessException, NotFoundException {
+		List<Venta> l = new ArrayList<Venta>();
+		try {
+			l = ventaDAO.findByProductosListNombreContaining(nombre);
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+		if(l.isEmpty()) {
+			throw new NotFoundException("No se han encontrado ventas con el nombre proporcionado!");
+		}
+	
 		return l;
 	}
 

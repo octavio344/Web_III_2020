@@ -8,17 +8,19 @@ import ar.edu.iua.model.Venta;
 
 public interface IVentaBusiness {
 
-	public List<Venta> list() throws BusinessException;
+	 List<Venta> list() throws BusinessException;
 	
-	public Venta load(Long id) throws BusinessException, NotFoundException;
+	 Venta load(Long id) throws BusinessException, NotFoundException;
 	
-	public Venta add(Venta v)throws BusinessException;
+	 Venta add(Venta v)throws BusinessException;
 	
-	public Venta update(Venta v) throws BusinessException, NotFoundException;
+	 Venta update(Venta v) throws BusinessException, NotFoundException;
 	
-	public void delete(Long id) throws BusinessException,NotFoundException;
+	 void delete(Long id) throws BusinessException,NotFoundException;
 	
-	public List<Venta> listOrderByDate() throws BusinessException;
+	 List<Venta> listOrderByDate() throws BusinessException;
 	
-	public List<Venta> listByDescription(String descripcion) throws BusinessException, NotFoundException;
+	 List<Venta> listByDescription(String descripcion) throws BusinessException, NotFoundException;
+	 
+	 List<Venta> listByNombreProducto(String nombre) throws BusinessException, NotFoundException;
 }

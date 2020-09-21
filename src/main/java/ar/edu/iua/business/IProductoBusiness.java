@@ -1,6 +1,7 @@
 package ar.edu.iua.business;
 
 import java.util.List;
+import java.util.Optional;
 
 import ar.edu.iua.business.exception.BusinessException;
 import ar.edu.iua.business.exception.NotFoundException;
@@ -28,5 +29,5 @@ public interface IProductoBusiness {
 	
 	public List<Producto> loadByPrice(double precio,String modoBus) throws BusinessException, NotFoundException;
 	
-	
+	public List<Producto> listByVentaDetalle(String detalle)throws BusinessException,NotFoundException;
 }
