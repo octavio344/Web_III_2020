@@ -47,11 +47,11 @@ public class Producto implements Serializable {
 	private boolean enStock;
 	
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private ProductoDetalle productoDetalle;
 	
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade= CascadeType.ALL)
 	@JoinColumn(name = "proveedor_id")
 	private Proveedor proveedor;
 	

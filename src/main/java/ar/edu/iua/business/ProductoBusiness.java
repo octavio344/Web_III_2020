@@ -65,8 +65,18 @@ public class ProductoBusiness implements IProductoBusiness {
 
 	@Override
 	public Producto update(Producto producto) throws NotFoundException, BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		
+			Producto p=load(producto.getId());
+			
+			if(p==null) {
+				throw new NotFoundException("El producto que se quiere actualizar no fue encontrado!");
+			}
+			
+			try {
+				return add(p);
+		}catch (Exception e) {
+			throw new BusinessException(e);
+		}
 	}
 
 	@Override

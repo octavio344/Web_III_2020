@@ -131,7 +131,7 @@ private Logger log = LoggerFactory.getLogger(this.getClass());
 		
 		
 		
-		// curl "http://localhost:8080/api/v1/productos/1" -v
+		// curl "http://localhost:8080/api/v1/ventas/detalle-venta" -v
 		@GetMapping(value = "/detalle-venta", produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<List<Venta>> listByProductoNombre(@RequestParam(name = "nombre", required = true) String nombre) {
 			
