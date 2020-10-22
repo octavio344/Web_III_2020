@@ -29,4 +29,6 @@ public interface IProductoBusiness {
 	public List<Producto> loadByPrice(double precio,String modoBus) throws BusinessException, NotFoundException;
 	
 	public List<Producto> listByVentaDetalle(String detalle)throws BusinessException,NotFoundException;
+	
+	List<Producto> findByprecioMayorQue(double precioMayor)throws BusinessException;
 }

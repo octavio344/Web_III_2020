@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import ar.edu.iua.business.exception.BusinessException;
 import ar.edu.iua.business.exception.NotFoundException;
 import ar.edu.iua.model.Venta;
+import ar.edu.iua.model.VentasDTO;
 import ar.edu.iua.model.persistence.VentaRepository;
 
 @Service
@@ -121,6 +122,18 @@ public class VentaBusiness implements IVentaBusiness{
 			throw new NotFoundException("No se han encontrado ventas con el nombre proporcionado!");
 		}
 	
+		return l;
+	}
+
+	@Override
+	public List<VentasDTO> listFechaByNombre(String nombre) throws BusinessException {
+		List<VentasDTO> l = new ArrayList<VentasDTO>();
+		try {
+			l = ventaDAO.findFechaByNombre(nombre);
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+		
 		return l;
 	}
 

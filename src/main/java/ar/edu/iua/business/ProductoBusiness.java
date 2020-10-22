@@ -178,6 +178,21 @@ public class ProductoBusiness implements IProductoBusiness {
 		return op;
 	}
 
+	@Override
+	public List<Producto> findByprecioMayorQue(double precioMayor) throws BusinessException {
+		List<Producto> l= new ArrayList<Producto>();
+		
+		try {
+			
+			l = productoDAO.findByprecioMayorQue(precioMayor);
+			
+		}catch(Exception e) {
+			throw new BusinessException(e);
+		}
+		
+		return l;
+	}
+
 }
 
 //@Autowired

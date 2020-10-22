@@ -23,6 +23,7 @@ import ar.edu.iua.business.IVentaBusiness;
 import ar.edu.iua.business.exception.BusinessException;
 import ar.edu.iua.business.exception.NotFoundException;
 import ar.edu.iua.model.Venta;
+import ar.edu.iua.model.VentasDTO;
 
 @RestController
 @RequestMapping(value = Constantes.URL_VENTAS)
@@ -145,6 +146,20 @@ private Logger log = LoggerFactory.getLogger(this.getClass());
 			}catch (NotFoundException e) {
 				return new ResponseEntity<List<Venta>>(HttpStatus.NOT_FOUND);
 				
+			}
+		}
+		
+		
+		@GetMapping(value = "/venta-fecha", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<List<VentasDTO>> listFechaByProductoNombre(@RequestParam(name = "nombre", required = true) String nombre) {
+			
+			try {
+				
+				return new ResponseEntity<List<VentasDTO>>(ventasBusiness.listFechaByNombre(nombre), HttpStatus.OK);
+				
+			} catch (BusinessException e) {
+				log.error(e.getMessage(), e);
+				return new ResponseEntity<List<VentasDTO>>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
 		

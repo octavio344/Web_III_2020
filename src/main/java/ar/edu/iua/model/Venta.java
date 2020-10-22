@@ -4,14 +4,38 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+
+//Query nativa
+	@NamedNativeQuery(name = "Venta.findFechaByNombre", query = "SELECT v.fecha_venta FROM ventas v \r\n" + 
+			"inner join producto_venta pv on v.id=pv.venta_id\r\n" + 
+			"inner join produtos pro on pro.id=pv.producto_id  where pro.nombre=?", resultSetMapping = "ventasmap")
+	@SqlResultSetMapping(
+	        name="ventasmap",
+	        classes = {
+	                @ConstructorResult(
+	                        columns = {
+	                                @ColumnResult(name = "v.fecha_venta", type = String.class)
+	                        },
+	                        targetClass = VentasDTO.class
+	                )
+	        }
+	)
+	
+	//------
+
 
 @Entity
 @Table(name="ventas")

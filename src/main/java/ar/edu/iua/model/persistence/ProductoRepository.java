@@ -3,6 +3,7 @@ package ar.edu.iua.model.persistence;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.iua.model.Producto;
@@ -25,6 +26,12 @@ public interface ProductoRepository extends JpaRepository<Producto, Long>{
 	 List<Producto> findByNombreStartingWith(String nombre);
 	
 	 List<Producto> findByVentasListDetalleVentaContaining(String detalle);
+	 
+	 @Query(value="select * from produtos where precio_lista > ?",nativeQuery=true)
+	 List<Producto> findByprecioMayorQue(double precio);
+	 
+	 
+
 }
 
 

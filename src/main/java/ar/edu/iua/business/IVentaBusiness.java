@@ -5,6 +5,7 @@ import java.util.List;
 import ar.edu.iua.business.exception.BusinessException;
 import ar.edu.iua.business.exception.NotFoundException;
 import ar.edu.iua.model.Venta;
+import ar.edu.iua.model.VentasDTO;
 
 public interface IVentaBusiness {
 
@@ -23,4 +24,6 @@ public interface IVentaBusiness {
 	 List<Venta> listByDescription(String descripcion) throws BusinessException, NotFoundException;
 	 
 	 List<Venta> listByNombreProducto(String nombre) throws BusinessException, NotFoundException;
+	 
+	 List<VentasDTO> listFechaByNombre(String nombre)throws BusinessException;
 }

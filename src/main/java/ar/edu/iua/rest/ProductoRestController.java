@@ -202,6 +202,20 @@ public class ProductoRestController {
 			}
 		}
 	
+		
+		
+		@GetMapping(value = "/precio-mayor", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<List<Producto>> listByPrecio(
+				@RequestParam(name = "precio", required = true) double precio) {
+			try {
+				
+				return new ResponseEntity<List<Producto>>(productoBusiness.findByprecioMayorQue(precio), HttpStatus.OK);
+				
+			} catch (BusinessException e) {
+				log.error(e.getMessage(), e);
+				return new ResponseEntity<List<Producto>>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
 	
 //URL-> http://localhost:8080/api/v1/productos/1 --> IProductoBusiness.load(  1 ) 
 
